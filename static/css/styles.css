@@ -1,0 +1,84 @@
+/* General Body Styling */
+body {
+    font-family: 'Inter', sans-serif; /* Default body text font */
+    background-color: #f4f7f6; /* Light background */
+    color: #333; /* Darker text for readability */
+    margin: 20px;
+    padding: 0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    min-height: 95vh; /* Take up almost full viewport height */
+}
+
+/* Headings */
+h1, h2 {
+    /* Base Tektur styling - specific weights/widths will be applied via classes */
+    font-family: 'Tektur', sans-serif;
+    color: #2c3e50; /* A dark blue/grey for emphasis */
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em; /* Slightly space out letters for Tektur */
+}
+
+h1 {
+    font-size: 2.5em;
+    /* We assume h1 will have a Tektur class like 'tektur-bold-normal' applied in HTML */
+    /* No font-weight here as the HTML class will handle it */
+}
+
+h2 {
+    font-size: 1.8em;
+    /* By default, let's make h2 use a semi-bold Inter if no class is specified,
+       or you can add a class like 'suse-semibold' directly in HTML */
+    font-family: 'SUSE', sans-serif; /* Example: SUSE for secondary headings */
+    font-weight: 600; /* Semibold for subheadings */
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
+
+/* Forms */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between form elements */
+    max-width: 400px; /* Limit form width */
+    width: 90%; /* Responsive width */
+    margin-bottom: 30px;
+}
+
+form label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    font-family: 'Inter', sans-serif; /* Consistent font for labels */
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding in width */
+    font-size: 1em;
+    font-family: 'Anonymous Pro', monospace; /* Monospaced for input fields for clarity */
+}
+
+form input:focus {
+    border-color: #007bff; /* Highlight on focus */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+form button[type="submit"],
+form button[name="add_user"],
+form button[name="add_document"] {

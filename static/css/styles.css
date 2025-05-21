@@ -82,3 +82,81 @@ form input:focus {
 form button[type="submit"],
 form button[name="add_user"],
 form button[name="add_document"] {
+    background-color: #28a745; /* Green for submit/add */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-family: 'SUSE', sans-serif; /* Using SUSE for buttons for a distinct look */
+    font-weight: 600; /* Semibold SUSE */
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+form button[type="submit"]:hover,
+form button[name="add_user"]:hover,
+form button[name="add_document"]:hover {
+    background-color: #218838;
+}
+
+/* Lists (Users, Documents) */
+ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+ul li {
+    padding: 12px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Anonymous Pro', monospace; /* Explicitly use Anonymous Pro */
+    font-weight: 400; /* Regular Anonymous Pro */
+    color: #444;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+
+/* Links */
+a {
+    color: #007bff; /* Blue for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-family: 'Inter', sans-serif; /* Default link font */
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Logout Link (specific styling) */
+a[href*="logout"] { /* Targets links containing 'logout' in their href */
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #dc3545; /* Red for logout */
+    color: white;
+    border-radius: 5px;
+    width: fit-content;
+    align-self: center; /* Center the logout button */
+    font-family: 'SUSE', sans-serif; /* Using SUSE for the logout button */
+    font-weight: 700; /* Bold SUSE */
+}
+
+a[href*="logout"]:hover {
+    background-color: #c82333;
+    text-decoration: none;
+}

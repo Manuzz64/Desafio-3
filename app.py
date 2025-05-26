@@ -62,7 +62,11 @@ def documentos():
         return redirect(url_for('login')) #Se não estiver, redireciona para a página de login
     conn = get_bdconnection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM files") #Busca todos os resultados da consulta em uma lista
+    cursor.execute("""
+        SELECT files.*, users.username
+        FROM files
+        JOIN users ON files.IDuser = users.IDuser
+    """) #Busca todos os resultados da consulta em uma lista
     documentos = cursor.fetchall() #Pega todos os resultados da consulta
     cursor.close()
     conn.close()
@@ -82,18 +86,24 @@ def admin():
             iduser = request.form['IDuser']
             username = request.form['username']
             password = request.form['passuser']
-            cursor.execute("INSERT INTO users (IDuser, username, passuser) VALUES (%s, %s, %s)", (iduser, username, password))
+            is_admin = request.form['is_admin']
+            cursor.execute("INSERT INTO users (IDuser, username, passuser, is_admin) VALUES (%s, %s, %s, %s)", (iduser, username, password, is_admin))
             conn.commit() #Confirma as alterações na base de dados
         elif 'add_document' in request.form:
             idfile = request.form['IDfile']
             filename = request.form['filename']
-            filelink = request.form['filelink']
-            cursor.execute("INSERT INTO files (IDfile, filename, filepath) VALUES (%s, %s, %s)", (idfile, filename, filelink))
+            filelink = request.form['filelink'] 
+            Saveuser = session['user_id'] #Pega o ID do utilizador logado
+            cursor.execute("INSERT INTO files (IDfile, filename, filelink, IDuser) VALUES (%s, %s, %s, %s)", (idfile, filename, filelink, Saveuser))
             conn.commit()
 
     cursor.execute("SELECT * FROM users") #Busca todos os resultados da consulta em uma lista
     users = cursor.fetchall() #Pega todos os resultados da consulta
-    cursor.execute("SELECT * FROM files") #Busca todos os resultados da consulta em uma lista
+    cursor.execute("""
+        SELECT files.*, users.username
+        FROM files
+        JOIN users ON files.IDuser = users.IDuser
+    """) #Busca todos os resultados da consulta em uma lista
     documentos = cursor.fetchall() #Pega todos os resultados da consulta
     cursor.close()
     conn.close()

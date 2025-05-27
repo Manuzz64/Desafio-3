@@ -156,7 +156,53 @@ a[href*="logout"] { /* Targets links containing 'logout' in their href */
     font-weight: 700; /* Bold SUSE */
 }
 
+
+
 a[href*="logout"]:hover {
     background-color: #c82333;
+    text-decoration: none;
+}
+
+/* Login Link (specific styling) */
+a[href*="login"] { /* Targets links containing 'logout' in their href */
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #4dc51e; /* Red for logout */
+    color: white;
+    border-radius: 5px;
+    width: fit-content;
+    align-self: center; /* Center the logout button */
+    font-family: 'SUSE', sans-serif; /* Using SUSE for the logout button */
+    font-weight: 700; /* Bold SUSE */
+}
+
+
+
+a[href*="login"]:hover {
+    background-color: #42a71b;
+    text-decoration: none;
+}
+
+/* Signup Link (specific styling) */
+a[href*="signup"] { /* Targets links containing 'logout' in their href */
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #1ec0c5; /* Red for logout */
+    color: white;
+    border-radius: 5px;
+    width: fit-content;
+    align-self: center; /* Center the logout button */
+    font-family: 'SUSE', sans-serif; /* Using SUSE for the logout button */
+    font-weight: 700; /* Bold SUSE */
+}
+
+
+
+a[href*="signup"]:hover {
+    background-color: #15868a;
     text-decoration: none;
 }

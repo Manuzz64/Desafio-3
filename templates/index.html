@@ -1,32 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>uhh...</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='fonts.css') }}"
-    />
-    <link rel="stylesheet" href="/static/css/styles.css" />
-    <link rel="stylesheet" href="/static/css/fonts.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=SUSE:wght@100..800&family=Tektur:wght@400..900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+    <meta charset="UTF-8"/>
+    <title>DESAFIO 3</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/uikit.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/uikit.min.css') }}" />
+
+    <script src="{{ url_for('static', filename='js/uikit.js') }}"> </script>
+    <script src="{{ url_for('static', filename='js/uikit.min.js') }}"></script>
+    
   </head>
   <body>
+    <div class="uk-position-relative">
+      <img src="{{ url_for('static', filename='imgs/coding2.gif') }}" width="1800" height="1200" alt="">
+      <div class="uk-position-top">
+          <nav class="uk-navbar-container uk-navbar-transparent">
+              <div class="uk-container">
+                  <div uk-navbar>
+
+                      <div class="uk-navbar-left">
+                          <ul class="uk-navbar-nav">
+                              <li><a href="#">Active</a></li>
+                              <li><a href="#">Item</a></li>
+                              <li><a href="#">item</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </nav>
+      </div>
+      
+      <div class="uk-overlay uk-position-center-right uk-light uk-animation-toggle" tabindex="0" uk-scrollspry="cls: uk-animation-scale-up; repeat: true">
+                        <h1 class="uk-heading-medium uk-text-bold" style="color: navy">ANIME</h1>
+                        <p class="uk-text-center" style="color: navy">Mais outro site</p>
+                      </div>
+    </div>
     <h1 class="tektur-bold-normal">Pagina do Desafio 3</h1>
     <p>Este site foi feito em ambito do desafio 3 da turma TGPSI24
       com o objetivo de armazenar documentos, criar e entrar em contas
       e diferenciar utilizadores normais de admins</p>
-      <a href="{{ url_for('login') }}">Login</a>
-      <a href="{{ url_for('signup') }}">Sign up</a>
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('signup') }}">Sign up</a>
   </body>
 </html>

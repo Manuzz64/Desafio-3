@@ -30,9 +30,18 @@ def get_bdconnection():
         database = 'databasedef' #nome da base de dados que foi criada
     )
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    # Render a signup template or handle signup logic here
+    return render_template('signup.html')
+
 #Definimos uma rota(endereço) da aplicação com @app.route
 #Aqui é a rota principal "/" que corresponde à página inicial do site - o login.
-@app.route('/', methods=['GET', 'POST']) #Aqui permitimos os métodos GET(quando visita a página) e POST(quando envia o formulário)
+@app.route('/login', methods=['GET', 'POST']) #Aqui permitimos os métodos GET(quando visita a página) e POST(quando envia o formulário)
 def login():
     if request.method == 'POST': #Se o método for post vv
             username = request.form['username'] #Pega o username do formulário
@@ -155,7 +164,7 @@ def remove_admin(user_id):
 @app.route('/logout')
 def logout():
     session.clear() #Limpa a sessão, removendo todos os dados guardados(desloga o utilizador)
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 browser_opened = False #Variável para saber se o navegador foi aberto para evitar abrir várias vezes
 

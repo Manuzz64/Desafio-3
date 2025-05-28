@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Documentos</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='fonts.css') }}"
-    />
-    <link rel="stylesheet" href="/static/css/styles.css" />
-    <link rel="stylesheet" href="/static/css/fonts.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>!Docs!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=SUSE:wght@100..800&family=Tektur:wght@400..900&display=swap"
       rel="stylesheet"
     />
-  </head>
-  <body>
+</head>
+<body>
     <h1>Documentos</h1>
+
+    <h2>Adicionar documento</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="filename" placeholder="Nome do Ficheiro" required>
+        <input type="text" name="filelink" placeholder="Link do Ficheiro" required>
+        <button type="submit" name="add_document">Adicionar Documento</button>
+    </form>
+
+    <h2>Documentos disponíveis</h2>
     <ul>
-      {% for documento in documentos %}
-      <li>
-        {{ documento.filename }} - <a href="{{ documento.filelink }}">Link</a>
-      </li>
-      {% endfor %}
-      <a href="{{ url_for('logout') }}">Logout</a>
+        {% for documento in documentos %}
+            <li>{{ documento.filename }} - (adicionado por {{ documento.username }})<a href="{{ documento.filelink }}">Link</a></li>
+        {% endfor %}
     </ul>
-  </body>
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+</body>
 </html>

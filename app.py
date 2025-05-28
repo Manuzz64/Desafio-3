@@ -56,21 +56,31 @@ def login():
     return render_template('login.html') #Se o método for GET(não submeteu o formulário), renderiza a página de login
 
 #Definimos a rota /documentos que mostra a lista dos documentos para utilizadores normais
-@app.route('/documentos')
+@app.route('/documentos', methods=['GET', 'POST'])
 def documentos():
     if 'user_id' not in session: #Verifica se primeiro se alguém está logado, verificando se 'user_id' está na sessão
         return redirect(url_for('login')) #Se não estiver, redireciona para a página de login
+    
     conn = get_bdconnection()
     cursor = conn.cursor(dictionary=True)
+
+    if request.method == 'POST' and 'add_document': #Se o método for POST, significa que o utilizador submeteu o formulário
+            filename = request.form['filename']
+            filelink = request.form['filelink'] 
+            Saveuser = session['user_id'] #Pega o ID do utilizador logado
+            cursor.execute("INSERT INTO files (filename, filelink, IDuser) VALUES (%s, %s, %s)", (filename, filelink, Saveuser))
+            conn.commit()
+
     cursor.execute("""
         SELECT files.*, users.username
         FROM files
         JOIN users ON files.IDuser = users.IDuser
     """) #Busca todos os resultados da consulta em uma lista
+    
     documentos = cursor.fetchall() #Pega todos os resultados da consulta
     cursor.close()
-    conn.close()
-
+    conn.close() 
+    
     return render_template('documentos.html', documentos=documentos) #Renderiza a página de documentos, passando a lista "documentos" para que o template possa mostrar a página
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -83,19 +93,34 @@ def admin():
 
     if request.method == 'POST':
         if 'add_user' in request.form:
-            iduser = request.form['IDuser']
             username = request.form['username']
             password = request.form['passuser']
-            is_admin = request.form['is_admin']
-            cursor.execute("INSERT INTO users (IDuser, username, passuser, is_admin) VALUES (%s, %s, %s, %s)", (iduser, username, password, is_admin))
+            is_admin = 1 if request.form.get('is_admin') == '1' else 0
+            cursor.execute("INSERT INTO users (username, passuser, is_admin) VALUES (%s, %s, %s)", (username, password, is_admin))
+            conn.commit() #Confirma as alterações na base de dados
+        elif 'remove_user' in request.form:
+            username = request.form['username']
+            cursor.execute("DELETE FROM users WHERE username = %s", (username,))
+            user = cursor.fetchone()
             conn.commit() #Confirma as alterações na base de dados
         elif 'add_document' in request.form:
-            idfile = request.form['IDfile']
             filename = request.form['filename']
             filelink = request.form['filelink'] 
             Saveuser = session['user_id'] #Pega o ID do utilizador logado
-            cursor.execute("INSERT INTO files (IDfile, filename, filelink, IDuser) VALUES (%s, %s, %s, %s)", (idfile, filename, filelink, Saveuser))
+            cursor.execute("INSERT INTO files (filename, filelink, IDuser) VALUES (%s, %s, %s)", (filename, filelink, Saveuser))
             conn.commit()
+        elif 'make_admin' in request.form:
+            username = request.form['username']
+            cursor.execute("SELECT IDuser FROM users WHERE username = %s", (username,))
+            user = cursor.fetchone() #Pega o primeiro resultado da consulta
+            if user:
+                make_admin(user['IDuser'])
+        elif 'remove_admin' in request.form:
+            username = request.form['username']
+            cursor.execute("SELECT IDuser FROM users WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if user:
+                remove_admin(user['IDuser'])
 
     cursor.execute("SELECT * FROM users") #Busca todos os resultados da consulta em uma lista
     users = cursor.fetchall() #Pega todos os resultados da consulta
@@ -110,6 +135,23 @@ def admin():
 
     return render_template('admin.html', users=users, documentos=documentos) #Renderiza a página de admin, passando as listas "users" e "documentos" para que o template possa mostrar a página
 
+def make_admin(user_id):
+    conn = get_bdconnection() #Faz a conexão com a base de dados
+    cursor = conn.cursor() #Cria um cursor para executar comandos SQL
+    cursor.execute("UPDATE users SET is_admin = 1 WHERE IDuser = %s", (user_id,)) #Atualiza o utilizador para ser admin
+    conn.commit() #Confirma as alterações na base de dados
+    cursor.close() #Fecha o cursor para libertar recursos
+    conn.close() #Fecha a conexão com a base de dados
+
+def remove_admin(user_id):
+    conn = get_bdconnection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE users SET is_admin = 0 WHERE IDuser = %s", (user_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    
 @app.route('/logout')
 def logout():
     session.clear() #Limpa a sessão, removendo todos os dados guardados(desloga o utilizador)

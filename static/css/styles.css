@@ -1,208 +1,252 @@
-/* General Body Styling */
-body {
-    font-family: 'Inter', sans-serif; /* Default body text font */
-    background-color: #f4f7f6; /* Light background */
-    color: #333; /* Darker text for readability */
-    margin: 20px;
-    padding: 0;
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    min-height: 95vh; /* Take up almost full viewport height */
+/* --- 1. Reset Básico e Box Sizing --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Headings */
+/* --- 2. Variáveis CSS (Cores, Fontes e Espaçamento) --- */
+:root {
+  /* Cores - Dark Mode Palette */
+  --bg-primary: #1a1a2e; /* Fundo principal escuro (azul profundo) */
+  --bg-card: #2c2c4d;   /* Fundo dos cartões (azul mais claro) */
+  --text-light: #e0e0e0; /* Cor do texto claro */
+  --text-darker: #a0a0a0; /* Cor do texto secundário ou labels */
+  --border-color: #4a4a6e; /* Cor das bordas sutis */
+
+  /* Cores de Destaque */
+  --accent-blue: #00bcd4; /* Azul elétrico para links/botões primários */
+  --accent-blue-dark: #008ba3; /* Versão mais escura para hover */
+  --accent-red: #ff5722; /* Laranja avermelhado para avisos/erros/ação secundária */
+  --accent-red-dark: #e64a19;
+
+  /* Fontes (baseadas nas suas importações do Google Fonts) */
+  --font-heading-h1: 'Tektur', sans-serif;
+  --font-heading-h2: 'Anonymous Pro', monospace;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Anonymous Pro', monospace; /* Para campos de input/código */
+
+  /* Espaçamento (Espaçoso e Arejado) */
+  --spacing-xxs: 0.25rem; /* 4px */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 2rem;     /* 32px */
+  --spacing-lg: 3rem;     /* 48px */
+  --spacing-xl: 4rem;     /* 64px */
+
+  /* Sombras para Dark Mode - sutis e elevadas */
+  --shadow-subtle: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --shadow-elevated: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Estilos Gerais do Body --- */
+body {
+  font-family: var(--font-body);
+  line-height: 1.8; /* Mais espaçamento para legibilidade */
+  color: var(--text-light);
+  background-color: var(--bg-primary);
+  padding: var(--spacing-lg) var(--spacing-md); /* Padding generoso */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  gap: var(--spacing-lg); /* Espaçamento entre as principais seções/cards */
+}
+
+/* --- Títulos --- */
 h1, h2 {
-    /* Base Tektur styling - specific weights/widths will be applied via classes */
-    font-family: 'Tektur', sans-serif;
-    color: #2c3e50; /* A dark blue/grey for emphasis */
-    text-align: center;
-    margin-bottom: 20px;
-    letter-spacing: 0.05em; /* Slightly space out letters for Tektur */
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  color: var(--accent-blue); /* Cor de destaque para títulos principais */
 }
 
 h1 {
-    font-size: 2.5em;
-    /* We assume h1 will have a Tektur class like 'tektur-bold-normal' applied in HTML */
-    /* No font-weight here as the HTML class will handle it */
+  font-family: var(--font-heading-h1);
+  font-size: 3.5rem; /* Tektur grande para impacto */
+  letter-spacing: 0.1rem; /* Espaçamento entre letras */
+  text-shadow: 0 0 15px rgba(0, 188, 212, 0.6); /* Brilho sutil */
 }
 
 h2 {
-    font-size: 1.8em;
-    /* By default, let's make h2 use a semi-bold Inter if no class is specified,
-       or you can add a class like 'suse-semibold' directly in HTML */
-    font-family: 'SUSE', sans-serif; /* Example: SUSE for secondary headings */
-    font-weight: 600; /* Semibold for subheadings */
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-    margin-top: 30px;
+  font-family: var(--font-heading-h2);
+  font-size: 2rem;
+  color: var(--text-light); /* H2 pode ser mais neutro, ou accent-blue */
+  margin-top: var(--spacing-xl); /* Mais espaço antes de novas seções */
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--border-color); /* Linha divisória sutil */
 }
 
-
-/* Forms */
-form {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Space between form elements */
-    max-width: 400px; /* Limit form width */
-    width: 90%; /* Responsive width */
-    margin-bottom: 30px;
+/* --- Containers/Cards para Seções (Formulários e Listas) --- */
+form, ul {
+  background-color: var(--bg-card);
+  padding: var(--spacing-lg);
+  border-radius: 12px; /* Cantos mais arredondados para cards */
+  box-shadow: var(--shadow-elevated); /* Sombra mais visível para profundidade */
+  width: 100%;
+  max-width: 600px; /* Largura máxima para melhor legibilidade */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md); /* Espaçamento interno dos cards */
+  margin-bottom: var(--spacing-lg); /* Espaço entre cards */
 }
 
-form label {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
-    font-family: 'Inter', sans-serif; /* Consistent font for labels */
+/* --- Estilo de Formulários --- */
+label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 700; /* Bold */
+  color: var(--text-light);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
 }
 
-form input[type="text"],
-form input[type="password"],
-form input[type="file"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box; /* Include padding in width */
-    font-size: 1em;
-    font-family: 'Anonymous Pro', monospace; /* Monospaced for input fields for clarity */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: 8px; /* Cantos arredondados para inputs */
+  background-color: var(--bg-primary); /* Fundo do input mais escuro */
+  color: var(--text-light);
+  font-size: 1rem;
+  font-family: var(--font-mono); /* Fonte mono para inputs */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-form input:focus {
-    border-color: #007bff; /* Highlight on focus */
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: var(--text-darker);
 }
 
-form button[type="submit"],
-form button[name="add_user"],
-form button[name="add_document"] {
-    background-color: #28a745; /* Green for submit/add */
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-family: 'SUSE', sans-serif; /* Using SUSE for buttons for a distinct look */
-    font-weight: 600; /* Semibold SUSE */
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 4px rgba(0, 188, 212, 0.4); /* Sombra de focus mais pronunciada */
+  outline: none;
+  background-color: #35355a; /* Ligeiramente mais claro no focus */
 }
 
-form button[type="submit"]:hover,
-form button[name="add_user"]:hover,
-form button[name="add_document"]:hover {
-    background-color: #218838;
+/* --- Estilo de Botões --- */
+button[type="submit"] {
+  background-color: var(--accent-blue);
+  color: var(--bg-primary); /* Texto escuro no botão vibrante */
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: 8px; /* Cantos arredondados para botões */
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  width: fit-content;
+  align-self: flex-end; /* Alinha à direita */
+  letter-spacing: 0.05rem;
 }
 
-/* Lists (Users, Documents) */
+button[type="submit"]:hover {
+  background-color: var(--accent-blue-dark);
+  transform: translateY(-3px); /* Efeito de "levantar" mais notável */
+  box-shadow: 0 6px 12px rgba(0, 188, 212, 0.3);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Botões específicos para adicionar utilizador/documento (se houver necessidade de diferenciar) */
+button[name="_add_user"] { /* Pode ter cores diferentes */ }
+button[name="_add_document"] { /* Pode ter cores diferentes */ }
+
+
+/* --- Estilo de Listas (Utilizadores e Documentos) --- */
 ul {
-    list-style: none; /* Remove bullet points */
-    padding: 0;
-    width: 90%;
-    max-width: 600px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 20px;
+  list-style: none;
+  padding: 0;
+  gap: var(--spacing-sm); /* Espaçamento entre itens da lista */
 }
 
-ul li {
-    padding: 12px 20px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Anonymous Pro', monospace; /* Explicitly use Anonymous Pro */
-    font-weight: 400; /* Regular Anonymous Pro */
-    color: #444;
+li {
+  padding: var(--spacing-sm) var(--spacing-xs);
+  border-bottom: 1px solid var(--border-color); /* Borda sutil */
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono); /* Fonte mono para itens de lista (pode ser body também) */
+  color: var(--text-light);
 }
 
-ul li:last-child {
-    border-bottom: none;
+li:last-child {
+  border-bottom: none;
 }
 
-/* Links */
+/* --- Estilo de Links --- */
 a {
-    color: #007bff; /* Blue for links */
-    text-decoration: none;
-    transition: color 0.3s ease;
-    font-family: 'Inter', sans-serif; /* Default link font */
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 a:hover {
-    color: #0056b3;
-    text-decoration: underline;
+  color: var(--accent-blue-dark);
+  text-decoration: underline;
 }
 
-/* Logout Link (specific styling) */
-a[href*="logout"] { /* Targets links containing 'logout' in their href */
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #dc3545; /* Red for logout */
-    color: white;
-    border-radius: 5px;
-    width: fit-content;
-    align-self: center; /* Center the logout button */
-    font-family: 'SUSE', sans-serif; /* Using SUSE for the logout button */
-    font-weight: 700; /* Bold SUSE */
+/* Link de Logout */
+a[href="{{ url_for('logout') }}"] {
+  margin-top: var(--spacing-md);
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--accent-red); /* Laranja/Vermelho para logout */
+  color: var(--text-light);
+  border-radius: 8px; /* Cantos arredondados */
+  align-self: center;
+  text-transform: uppercase; /* Para dar mais destaque */
+  letter-spacing: 0.05rem;
+  box-shadow: var(--shadow-subtle);
 }
 
-
-
-a[href*="logout"]:hover {
-    background-color: #c82333;
-    text-decoration: none;
+a[href="{{ url_for('logout') }}"]:hover {
+  background-color: var(--accent-red-dark);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 87, 34, 0.3);
 }
 
-/* Login Link (specific styling) */
-a[href*="login"] { /* Targets links containing 'logout' in their href */
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #4dc51e; /* Red for logout */
-    color: white;
-    border-radius: 5px;
-    width: fit-content;
-    align-self: center; /* Center the logout button */
-    font-family: 'SUSE', sans-serif; /* Using SUSE for the logout button */
-    font-weight: 700; /* Bold SUSE */
+/* --- Quebras de Linha (`<br>`) - Recomendação: usar flexbox/grid no futuro --- */
+br {
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
 }
 
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+  body {
+    padding: var(--spacing-md) var(--spacing-sm);
+    gap: var(--spacing-md);
+  }
 
+  h1 {
+    font-size: 2.5rem;
+  }
 
-a[href*="login"]:hover {
-    background-color: #42a71b;
-    text-decoration: none;
-}
+  h2 {
+    font-size: 1.6rem;
+    margin-top: var(--spacing-lg);
+  }
 
-/* Signup Link (specific styling) */
-a[href*="signup"] { /* Targets links containing 'logout' in their href */
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #1ec0c5; /* Red for logout */
-    color: white;
-    border-radius: 5px;
-    width: fit-content;
-    align-self: center; /* Center the logout button */
-    font-family: 'SUSE', sans-serif; /* Using SUSE for the logout button */
-    font-weight: 700; /* Bold SUSE */
-}
+  form, ul {
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    box-shadow: var(--shadow-subtle);
+    gap: var(--spacing-sm);
+  }
 
-
-
-a[href*="signup"]:hover {
-    background-color: #15868a;
-    text-decoration: none;
+  button[type="submit"] {
+    width: 100%;
+    align-self: stretch; /* Estica o botão para a largura total */
+  }
 }
